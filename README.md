@@ -80,7 +80,7 @@ pip install -r requirements.txt
 
 ### Step 2 - Open the notebook
 ```bash
-jupyter notebook OJT_Day1_Task.ipynb
+jupyter notebook SchoolData_EDA.ipynb
 ```
 
 ### Step 3 - Run all cells

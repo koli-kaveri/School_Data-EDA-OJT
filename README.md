@@ -80,13 +80,13 @@ pip install -r requirements.txt
 
 ### Step 2 - Open the notebook
 ```bash
-jupyter notebook School_EDA_Simple.ipynb
+jupyter notebook OJT_Day1_Task.ipynb
 ```
 
 ### Step 3 - Run all cells
 Go to **Kernel → Restart & Run All**
 
->  Make sure `School_data.xlsx` is in the **same folder** as the notebook!
+>  Make sure `School data.xlsx` is in the **same folder** as the notebook!
 
 ---
 

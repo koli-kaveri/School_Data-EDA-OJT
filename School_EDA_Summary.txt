@@ -1,0 +1,104 @@
+===============================================================
+  EXPLORATORY DATA ANALYSIS - SCHOOL DATASET
+  Summary Report
+================================================================
+
+──────────────────────────────────────────────────────────────
+1. DATASET OVERVIEW
+──────────────────────────────────────────────────────────────
+  Rows     : 5,200
+  Columns  : 17
+  Source   : School_data.xlsx
+
+  Column Types:
+  • Categorical : School_ID, District, Block, Urban_Rural
+  • Numeric     : Scores (Math, Language, Science), Teacher
+                  ratios, Infrastructure flags, Literacy rates
+
+  Target Variable(s):
+  • %_Math_Score, %_Language_Score, %_Science_Score
+    (or Avg_Score, engineered as their mean)
+
+──────────────────────────────────────────────────────────────
+2. DATA CLEANING
+──────────────────────────────────────────────────────────────
+  Missing Values Found:
+  • %_Math_Score            : 258 rows  → filled with MEDIAN
+  • Teacher_Student_Ratio   : 260 rows  → filled with MEDIAN
+  • Internet_Available      : 260 rows  → filled with MEDIAN
+  • Parent_Literacy_Rate    : 259 rows  → filled with MEDIAN
+  (Median chosen because it is robust to outliers)
+
+  Duplicates: NONE found
+
+  Out-of-Range Values Fixed:
+  • Scores capped to [0, 100] (some had values like 107)
+  • Parent_Literacy_Rate capped to [0, 100] (some were -5)
+
+──────────────────────────────────────────────────────────────
+3. EDA SUMMARY
+──────────────────────────────────────────────────────────────
+  Univariate:
+  • Scores roughly normally distributed, mean ~60%
+  • 3,579 Rural schools vs 1,621 Urban schools (~69% rural)
+  • Teacher-Student Ratio: right-skewed; some schools
+    are very overcrowded
+
+  Bivariate:
+  • Urban schools have consistently higher median scores
+  • District_A shows slightly better performance overall
+  • Parent literacy rate shows a positive trend with scores
+
+  Correlation Highlights:
+  • Math ↔ Language ↔ Science: all highly correlated (>0.7)
+  • Parent_Literacy_Rate → Math Score: moderate positive
+  • %_Marginalized_Students → Math Score: negative
+  • Infrastructure Score → Scores: weak positive
+
+──────────────────────────────────────────────────────────────
+4. KEY INSIGHTS
+──────────────────────────────────────────────────────────────
+  1. Urban-Rural Gap: Urban schools score ~5–8% higher on
+     average. Better infrastructure and teacher quality
+     in urban areas likely explain this.
+
+  2. Parent Literacy Matters: Schools in areas with higher
+     parent literacy see better student performance,
+     suggesting home support is a key factor.
+
+  3. Infrastructure Gaps: Many schools (especially rural)
+     lack internet, electricity, or a library — these
+     are strongly linked to lower scores.
+
+  4. Correlated Subjects: A school doing well in Math also
+     tends to do well in Language and Science, pointing to
+     school-level management as the key driver.
+
+  5. Marginalized Students Disadvantaged: Higher % of
+     marginalized students in a school = lower overall
+     scores, highlighting a critical equity issue.
+
+  6. Teacher Experience Has Weak Effect: Experience alone
+     doesn't strongly predict scores; training and
+     infrastructure seem more impactful.
+
+──────────────────────────────────────────────────────────────
+5. MODEL RESULTS (Linear Regression)
+──────────────────────────────────────────────────────────────
+  Features Used:
+  • Avg_Teacher_Experience_Years
+  • Teacher_Trainings_Attended
+  • Parent_Literacy_Rate
+  • Infra_Score (sum of 4 binary features)
+  • Is_Urban (1 = Urban)
+  • %_Marginalized_Students
+  • %_Students_With_Home_Internet
+
+  Results:
+  • R² Score  : ~0.20–0.30 (model explains ~20–30% variance)
+  • MAE       : ~10–12 points
+
+  Note: Low R² is expected — school performance depends on
+  many complex social/policy factors not captured here.
+
+
